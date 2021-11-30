@@ -49,7 +49,7 @@ app.get("/app/update/:id", (req, res) => {
 // CREATE a new user (HTTP method POST) at endpoint /app/new/
 app.post("/app/new/", (req, res) => {
 	const stmt = db.prepare(`INSERT INTO userinfo (user, pass) VALUES (?, ?)`).run(req.body.user, req.body.pass);
-	res.status(201).json(stmt);
+	res.status(201).json(stmt.lastInsertRowid);
 	
 });
 
