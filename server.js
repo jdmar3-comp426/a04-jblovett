@@ -1,9 +1,11 @@
 // Define app using express
-var express = require("express")
+var express = require("express");
+const md5 = require("md5");
 var app = express()
 // Require database SCRIPT file
-
+var db = require("/Users/jblovett/a04-jblovett/database.js")
 // Require md5 MODULE
+var md5_mod = require(md5)
 
 // Make Express use its own built-in body parser
 app.use(express.urlencoded({ extended: true }));
