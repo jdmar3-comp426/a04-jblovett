@@ -50,7 +50,7 @@ app.get("/app/update/:id", (req, res) => {
 // CREATE a new user (HTTP method POST) at endpoint /app/new/
 app.post("/app/new/user", (req, res) => {
 	const stmt = db.prepare(`INSERT INTO userinfo (user, pass) VALUES (?, ?)`).run(req.body.user, req.body.pass);
-	res.status(200).json(stmt);
+	res.status(201).json(stmt);
 	dumby_global = stmt.lastInsertRowid;
 	
 });
@@ -70,7 +70,7 @@ app.get("/app/user/:id", (req, res) => {
 
 // UPDATE a single user (HTTP method PATCH) at endpoint /app/update/user/:id
 app.patch("/app/update/user/:id/?user=test&pass=supersecurepassword", (req, res) => {
-	const stmt = db.prepare(`UPDATE userinfo SET user = COALESCE(${req.body.user},user), pass = COALESCE(${req.body.pass},pass) WHERE id = ${req.params.id}`).run();
+	const stmt = db.prepare(`UPDATE userinfo SET user = COALESCE(?,user), pass = COALESCE(?,pass) WHERE id = ?`).run(req.body.user, req.body.pass, req.params.id);
 	res.status(200).json(stmt);
 });
 
