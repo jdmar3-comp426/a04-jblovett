@@ -24,9 +24,11 @@ app.get("/app/", (req, res, next) => {
 	res.status(200);
 });
 
+var dumby_global;
+
 // Define other CRUD API endpoints using express.js and better-sqlite3
 app.post("/app/new/user/", (req, res, next) => {
-	res.status(201).json({"message": `1 record createed: ID ${req.params.id} (201)`});
+	res.status(201).json({"message": `1 record created: ID ${dumby_global} (201)`});
 })
 
 app.patch("/app/update/user:id/", (req, res, next) => {
@@ -47,8 +49,10 @@ app.get("/app/update/:id", (req, res) => {
 
 // CREATE a new user (HTTP method POST) at endpoint /app/new/
 app.post("/app/new/user", (req, res) => {
-	const stmt = db.prepare(`INSERT INTO userinfo (user, pass) VALUES (${req.body.user}, ${req.body.pass})`).run();
+	const stmt = db.prepare(`INSERT INTO userinfo (user, pass) VALUES (?, ?)`).run(req.body.user, req.body.pass);
 	res.status(200).json(stmt);
+	dumby_global = stmt.lastInsertRowid;
+	
 });
 
 // READ a list of all users (HTTP method GET) at endpoint /app/users/
