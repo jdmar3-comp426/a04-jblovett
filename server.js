@@ -38,7 +38,10 @@ app.delete("/app/delete/user:id/", (req, res, next) => {
 })
 app.get("/app/user/:id", (req, res) => {
 	// need to print resulting array of objects while wrapping passwords in md5
-	res.status(200).json({"id":`${req.params.id}`,"user":`${req.body.user}`,"pass":`${md5(req.body.pass)}`});
+	res.status(200).json({"id":`${req.params.id}`,"user":`${req.body.user}`,"pass":`test`});
+
+	//${md5(req.body.pass)}
+	//woah
 
 });
 
