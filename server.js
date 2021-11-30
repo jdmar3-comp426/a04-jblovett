@@ -27,7 +27,6 @@ app.get("/app/", (req, res, next) => {
 
 // Define other CRUD API endpoints using express.js and better-sqlite3
 app.post("/app/new/", (req, res, next) => {
-	console.log('in endpoint', req);
 	res.status(201).json({"message": `1 record created: ID ${req} (201)`});
 })
 
