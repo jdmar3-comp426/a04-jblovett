@@ -24,13 +24,13 @@ app.get("/app/", (req, res, next) => {
 	res.status(200);
 });
 
-const info;
+const info = 0;
 
 
 // Define other CRUD API endpoints using express.js and better-sqlite3
 app.post("/app/new/", (req, res, next) => {
 	console.log(info);
-	res.status(201).json({"message": `1 record created: ID ${info} (201)`});
+	res.status(201).json({"message": `1 record created: ID ${req.params.id} (201)`});
 })
 
 app.patch("/app/update/user:id/", (req, res, next) => {
