@@ -24,11 +24,10 @@ app.get("/app/", (req, res, next) => {
 	res.status(200);
 });
 
-var dumby_global;
 
 // Define other CRUD API endpoints using express.js and better-sqlite3
 app.post("/app/new/", (req, res, next) => {
-	res.status(201).json({"message": `1 record created: ID ${dumby_global} (201)`});
+	res.status(201).json({"message": `1 record created: ID ${req.body.lastInsertRowid} (201)`});
 })
 
 app.patch("/app/update/user:id/", (req, res, next) => {
@@ -51,7 +50,6 @@ app.get("/app/update/:id", (req, res) => {
 app.post("/app/new/", (req, res) => {
 	const stmt = db.prepare(`INSERT INTO userinfo (user, pass) VALUES (?, ?)`).run(req.body.user, req.body.pass);
 	res.status(201).json(stmt);
-	dumby_global = stmt.lastInsertRowid;
 	
 });
 
@@ -76,7 +74,7 @@ app.patch("/app/update/user/:id", (req, res) => {
 
 // DELETE a single user (HTTP method DELETE) at endpoint /app/delete/user/:id
 app.delete("/app/delete/user:id", (req, res) => {
-	const stmt = db.prepare(`DELETE FROM userinfo WHERE id = ${req.params.id}`).run();
+	const stmt = db.prepare(`DELETE FROM userinfo WHERE id = ?`).run(req.params.id);
 	res.status(200).json(stmt);
 });
 
