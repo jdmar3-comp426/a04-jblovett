@@ -36,9 +36,9 @@ app.patch("/app/update/user:id/", (req, res, next) => {
 app.delete("/app/delete/user:id/", (req, res, next) => {
 	res.status(200).json({"message": `1 record deleted: ID ${req.params.id} (200)`});
 })
-app.get("/app/user/:id", (req, res) => {
+app.get("/app/update/user/:id/?user=test&pass=supersecurepassword", (req, res) => {
 	// need to print resulting array of objects while wrapping passwords in md5
-	res.status(200).json({"id":`${req.params.id}`,"user":`${req.body.user}`,"pass":`test`});
+	res.status(200).json({"id":`${req.params.id}`,"user":`${req.body.user}`,"pass":`${md5(req.body.pass)}`});
 
 	//${md5(req.body.pass)}
 	//woah
@@ -58,7 +58,7 @@ app.get("/app/users", (req, res) => {
 });
 
 // READ a single user (HTTP method GET) at endpoint /app/user/:id
-app.get("/app/user/:id", (req, res) => {
+app.get("/app/update/user/:id/?user=test&pass=supersecurepassword", (req, res) => {
 	// req params id undefined?
 	const stmt = db.prepare(`SELECT * FROM userinfo WHERE id = 2`).get();
 	res.status(200).json(stmt);
