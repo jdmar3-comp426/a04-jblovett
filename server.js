@@ -30,21 +30,20 @@ app.get("/app/", (req, res, next) => {
 // 	res.status(201).json({"message": `1 record created: ID 2 (201)`});
 // })
 
-app.patch("/app/update/user:id/", (req, res, next) => {
-	res.status(200).json({"message": `1 record updated: ID ${req.params.id} (200)`});
-});
+// app.patch("/app/update/user:id/", (req, res, next) => {
+// 	res.status(200).json({"message": `1 record updated: ID ${req.params.id} (200)`});
+// });
 
 // app.delete("/app/delete/user:id/", (req, res, next) => {
 // 	res.status(200).json({"message": `1 record deleted: ID ${req.params.id} (200)`});
 // });
-app.get("/app/update/:id", (req, res) => {
-	// need to print resulting array of objects while wrapping passwords in md5
-	res.status(200).json({"id":`${req.params.id}`,"user":`${req.body.user}`,"pass":`${md5(req.body.pass)}`});
+// app.get("/app/update/:id", (req, res) => {
+// 	// need to print resulting array of objects while wrapping passwords in md5
+// 	res.status(200).json({"id":`${req.params.id}`,"user":`${req.body.user}`,"pass":`${md5(req.body.pass)}`});
 
-	//${md5(req.body.pass)}
-	//woah
-
-});
+// 	//${md5(req.body.pass)}
+// 	//woah
+// });
 
 // CREATE a new user (HTTP method POST) at endpoint /app/new/
 app.post("/app/new/", (req, res) => {
@@ -75,7 +74,7 @@ app.patch("/app/update/user/:id", (req, res) => {
 });
 
 // DELETE a single user (HTTP method DELETE) at endpoint /app/delete/user/:id
-app.delete("/app/delete/user:id", (req, res) => {
+app.delete("/app/delete/user/:id", (req, res) => {
 	const stmt = db.prepare(`DELETE FROM userinfo WHERE id = ?`);
 	const info = stmt.run(req.params.id);
 	res.status(200).json({"message": info.changes+ " record deleted: ID "+ req.params.id+ " (200)"});
